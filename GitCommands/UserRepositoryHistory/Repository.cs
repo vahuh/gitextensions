@@ -28,6 +28,8 @@
 
         public string? Category { get; set; }
 
+        public string? RepoName { get; set; }
+
         public string Path
         {
             get => _path ?? string.Empty;

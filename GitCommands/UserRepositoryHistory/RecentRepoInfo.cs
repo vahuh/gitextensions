@@ -8,6 +8,7 @@
         public DirectoryInfo? DirInfo { get; set; }
         public string? ShortName { get; }
         public string DirName { get; }
+        public string RepoName { get; set; }
 
         public RecentRepoInfo(Repository repo, bool mostRecent)
         {

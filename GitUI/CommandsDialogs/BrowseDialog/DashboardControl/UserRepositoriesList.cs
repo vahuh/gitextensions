@@ -388,6 +388,16 @@ namespace GitUI.CommandsDialogs.BrowseDialog.DashboardControl
                 .ToList();
         }
 
+        private List<string> GetRepoNames()
+        {
+            return GetRepositories()
+                .Select(repository => repository.RepoName)
+                .WhereNotNullOrWhiteSpace()
+                .OrderBy(x => x)
+                .Distinct()
+                .ToList();
+        }
+
         private IEnumerable<Repository> GetRepositories()
         {
             return listView1.Items.Cast<ListViewItem>()
@@ -503,6 +513,19 @@ namespace GitUI.CommandsDialogs.BrowseDialog.DashboardControl
             if (dialog.ShowDialog(this) == DialogResult.OK)
             {
                 name = dialog.Category;
+                return name is not null;
+            }
+
+            name = null;
+            return false;
+        }
+
+        private bool PromptCustomizeRepoName(List<string> repoNames, [NotNullWhen(returnValue: true)] out string? name)
+        {
+            using FormDashboardCustomizeRepoName dialog = new(repoNames);
+            if (dialog.ShowDialog(this) == DialogResult.OK)
+            {
+                name = dialog.RepoName;
                 return name is not null;
             }
 
@@ -814,6 +837,17 @@ namespace GitUI.CommandsDialogs.BrowseDialog.DashboardControl
                         ? RepositoryHistoryManager.Locals.RemoveFavouriteAsync(selectedRepositoryItem.Repository.Path)
                         : RepositoryHistoryManager.Locals.RemoveRecentAsync(selectedRepositoryItem.Repository.Path));
                 ShowRecentRepositories();
+            });
+        }
+
+        private void tsmiCustomizeRepoName_Click(object sender, EventArgs e)
+        {
+            RepositoryContextAction(sender as ToolStripMenuItem, selectedRepositoryItem =>
+            {
+                if (PromptCustomizeRepoName(GetRepoNames(), out string? repoName))
+                {
+                    ThreadHelper.JoinableTaskFactory.Run(() => _controller.CustomizeRepoNameAsync(selectedRepositoryItem.Repository, repoName));
+                }
             });
         }
 

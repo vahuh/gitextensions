@@ -34,6 +34,7 @@ namespace GitCommands.UserRepositoryHistory
         /// <param name="repositoryHistory">A list of favourite git repositories.</param>
         /// <returns>An awaitable task.</returns>
         Task SaveFavouriteHistoryAsync(IEnumerable<Repository> repositoryHistory);
+        Task CustomizeRepoNameAsync(Repository repository, string customizedRepoName);
 
         /// <summary>
         /// Removes the invalid repositories from both recent and favourite local git repositories in a persistent storage.
@@ -348,6 +349,11 @@ namespace GitCommands.UserRepositoryHistory
             {
                 await SaveFavouriteHistoryAsync(favouriteRepositoryHistory);
             }
+        }
+
+        public Task CustomizeRepoNameAsync(Repository repository, string customizedRepoName)
+        {
+            throw new NotImplementedException();
         }
     }
 }

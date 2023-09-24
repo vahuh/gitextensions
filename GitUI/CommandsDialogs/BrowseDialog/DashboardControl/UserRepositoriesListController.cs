@@ -6,6 +6,7 @@ namespace GitUI.CommandsDialogs.BrowseDialog.DashboardControl
     public interface IUserRepositoriesListController
     {
         Task AssignCategoryAsync(Repository repository, string? category);
+        Task CustomizeRepoNameAsync(Repository repository, string? repoName);
         string GetCurrentBranchName(string path);
         bool IsValidGitWorkingDir(string path);
         (IReadOnlyList<RecentRepoInfo> recentRepositories, IReadOnlyList<RecentRepoInfo> favouriteRepositories) PreRenderRepositories(Graphics g, string filter);
@@ -37,6 +38,21 @@ namespace GitUI.CommandsDialogs.BrowseDialog.DashboardControl
             }
 
             await _localRepositoryManager.AssignCategoryAsync(repository, category);
+        }
+
+        public async Task CustomizeRepoNameAsync(Repository repository, string? customizedRepoName)
+        {
+            if (repository is null)
+            {
+                throw new ArgumentNullException(nameof(repository));
+            }
+
+            if (customizedRepoName is null)
+            {
+                throw new ArgumentNullException(nameof(customizedRepoName));
+            }
+
+            await _localRepositoryManager.CustomizeRepoNameAsync(repository, customizedRepoName);
         }
 
         /// <summary>

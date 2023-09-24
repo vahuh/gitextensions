@@ -869,7 +869,12 @@ namespace GitUI.CommandsDialogs
                     updateForm.SearchForUpdatesAndShow(ownerWindow: this, alwaysShow: false);
                 }
 
-                bool hasWorkingDir = !string.IsNullOrEmpty(Module.WorkingDir);
+                // NOTE: Only for debugging, this needs to be commented/removed in production
+                bool hasWorkingDir = false;
+
+                // NOTE: This needs to always be uncommented in production, only commented for debugging
+                // bool hasWorkingDir = !string.IsNullOrEmpty(Module.WorkingDir);
+
                 if (hasWorkingDir)
                 {
                     HideDashboard();
