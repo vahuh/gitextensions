@@ -88,6 +88,7 @@
             this.txtRepoName.Name = "txtRepoName";
             this.txtRepoName.Size = new System.Drawing.Size(355, 27);
             this.txtRepoName.TabIndex = 6;
+            this.txtRepoName.TextChanged += new System.EventHandler(this.txtRepoName_TextChanged); 
             // 
             // lblRepoName
             // 

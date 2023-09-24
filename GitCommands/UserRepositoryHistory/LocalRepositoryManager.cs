@@ -34,6 +34,13 @@ namespace GitCommands.UserRepositoryHistory
         /// <param name="repositoryHistory">A list of favourite git repositories.</param>
         /// <returns>An awaitable task.</returns>
         Task SaveFavouriteHistoryAsync(IEnumerable<Repository> repositoryHistory);
+
+        /// <summary>
+        /// Saves a customized name for the repository.
+        /// </summary>
+        /// <param name="repository"> The repository which name will be customized</param>
+        /// <param name="customizedRepoName"> The customized name for the repository</param>
+        /// <returns>An awaitable task</returns>
         Task CustomizeRepoNameAsync(Repository repository, string customizedRepoName);
 
         /// <summary>
@@ -351,9 +358,39 @@ namespace GitCommands.UserRepositoryHistory
             }
         }
 
-        public Task CustomizeRepoNameAsync(Repository repository, string customizedRepoName)
+        public async Task CustomizeRepoNameAsync(Repository repository, string customizedRepoName)
         {
-            throw new NotImplementedException();
+            if (repository is null)
+            {
+                throw new ArgumentNullException(nameof(repository));
+            }
+
+            await TaskScheduler.Default;
+
+            var historyRepositories = await LoadRecentHistoryAsync();
+            var currentRepo = historyRepositories.FirstOrDefault(hr => string.Equals(hr.Path, repository.Path, StringComparison.OrdinalIgnoreCase));
+
+            if (currentRepo != null)
+            {
+                currentRepo.RepoName = customizedRepoName;
+            }
+            else
+            {
+                repository.RepoName = customizedRepoName;
+                historyRepositories.Add(repository);
+            }
+
+            await SaveRecentHistoryAsync(historyRepositories);
+
+            var favourites = await LoadFavouriteHistoryAsync();
+            var favourite = favourites.FirstOrDefault(f => string.Equals(f.Path, repository.Path, StringComparison.OrdinalIgnoreCase));
+
+            if (favourite != null)
+            {
+                favourite.RepoName = customizedRepoName;
+            }
+
+            await SaveFavouriteHistoryAsync(favourites);
         }
     }
 }

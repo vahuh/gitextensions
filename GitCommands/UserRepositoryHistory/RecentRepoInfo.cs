@@ -8,12 +8,13 @@
         public DirectoryInfo? DirInfo { get; set; }
         public string? ShortName { get; }
         public string DirName { get; }
-        public string RepoName { get; set; }
+        public string? RepoName { get; set; }
 
         public RecentRepoInfo(Repository repo, bool mostRecent)
         {
             Repo = repo;
             MostRecent = mostRecent;
+            RepoName = repo.RepoName;
             try
             {
                 DirInfo = new DirectoryInfo(Repo.Path);
@@ -171,7 +172,7 @@
             }
             else
             {
-                repoInfo.Caption = repoInfo.Repo.Path;
+                repoInfo.Caption = !string.IsNullOrWhiteSpace(repoInfo.RepoName) ? repoInfo.RepoName : repoInfo.Repo.Path;
             }
 
             var existsShortName = orderedRepos.TryGetValue(repoInfo.Caption!, out var list);

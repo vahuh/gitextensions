@@ -847,6 +847,7 @@ namespace GitUI.CommandsDialogs.BrowseDialog.DashboardControl
                 if (PromptCustomizeRepoName(GetRepoNames(), out string? repoName))
                 {
                     ThreadHelper.JoinableTaskFactory.Run(() => _controller.CustomizeRepoNameAsync(selectedRepositoryItem.Repository, repoName));
+                    ShowRecentRepositories();
                 }
             });
         }

@@ -56,10 +56,6 @@ namespace GitUI.CommandsDialogs.BrowseDialog.DashboardControl
             Close();
         }
 
-        /*private void FormDashboardCustomizeRepoName_Load(object sender, EventArgs e)
-        {
-        }*/
-
         private void txtRepoName_TextChanged(object sender, EventArgs e)
         {
             btnOk.Enabled = txtRepoName.Text != RepoName;
