@@ -63,6 +63,7 @@
             this.btnOk.Text = "OK";
             this.btnOk.UseCompatibleTextRendering = true;
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.OkButton_Click);
             // 
             // btnCancel
             // 
@@ -77,6 +78,7 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseCompatibleTextRendering = true;
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // txtRepoName
             // 

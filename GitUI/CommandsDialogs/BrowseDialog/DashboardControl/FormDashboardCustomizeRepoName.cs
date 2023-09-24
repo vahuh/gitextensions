@@ -23,6 +23,7 @@ namespace GitUI.CommandsDialogs.BrowseDialog.DashboardControl
         }
 
         public FormDashboardCustomizeRepoName(IEnumerable<string> existingRepoNames)
+            : this()
         {
             if (existingRepoNames is not null)
             {
@@ -37,11 +38,13 @@ namespace GitUI.CommandsDialogs.BrowseDialog.DashboardControl
             if (string.IsNullOrWhiteSpace(txtRepoName.Text))
             {
                 MessageBox.Show(this, _repoNameRequiredText.Text, lblRepoName.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             if (_existingRepoNames.Contains(txtRepoName.Text.Trim(), StringComparer.Ordinal))
             {
                 MessageBox.Show(this, _repoNameTakenText.Text, lblRepoName.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             RepoName = txtRepoName.Text;
