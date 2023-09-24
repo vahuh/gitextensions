@@ -41,7 +41,7 @@ namespace GitCommands.UserRepositoryHistory
         /// <param name="repository"> The repository which name will be customized</param>
         /// <param name="customizedRepoName"> The customized name for the repository</param>
         /// <returns>An awaitable task</returns>
-        Task CustomizeRepoNameAsync(Repository repository, string customizedRepoName);
+        Task CustomizeOrDeleteRepoNameAsync(Repository repository, string customizedRepoName);
 
         /// <summary>
         /// Removes the invalid repositories from both recent and favourite local git repositories in a persistent storage.
@@ -358,7 +358,7 @@ namespace GitCommands.UserRepositoryHistory
             }
         }
 
-        public async Task CustomizeRepoNameAsync(Repository repository, string customizedRepoName)
+        public async Task CustomizeOrDeleteRepoNameAsync(Repository repository, string customizedRepoName)
         {
             if (repository is null)
             {

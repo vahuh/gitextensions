@@ -61,6 +61,8 @@
             this.tsmiCategoryAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRemoveFromList = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRemoveMissingReposFromList = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiDeleteRepoName = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCustomizeRepoName = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.textBoxSearch = new System.Windows.Forms.TextBox();
@@ -224,9 +226,11 @@
             this.toolStripMenuItem1,
             this.tsmiRemoveFromList,
             this.tsmiRemoveMissingReposFromList,
+            this.toolStripSeparator1,
+            this.tsmiDeleteRepoName,
             this.tsmiCustomizeRepoName});
             this.contextMenuStripRepository.Name = "contextMenuStripRepository";
-            this.contextMenuStripRepository.Size = new System.Drawing.Size(332, 146);
+            this.contextMenuStripRepository.Size = new System.Drawing.Size(332, 206);
             this.contextMenuStripRepository.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.contextMenuStrip_Closed);
             this.contextMenuStripRepository.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
@@ -277,12 +281,24 @@
             this.tsmiRemoveMissingReposFromList.Text = "Remove missing projects from the list";
             this.tsmiRemoveMissingReposFromList.Click += new System.EventHandler(this.tsmiRemoveMissingReposFromList_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(328, 6);
+            // 
             // tsmiCustomizeRepoName
             // 
             this.tsmiCustomizeRepoName.Name = "tsmiCustomizeRepoName";
             this.tsmiCustomizeRepoName.Size = new System.Drawing.Size(331, 26);
             this.tsmiCustomizeRepoName.Text = "Customize repository name";
             this.tsmiCustomizeRepoName.Click += new System.EventHandler(this.tsmiCustomizeRepoName_Click);
+            // 
+            // tsmiDeleteRepoName
+            // 
+            this.tsmiDeleteRepoName.Name = "tsmiDeleteRepoName";
+            this.tsmiDeleteRepoName.Size = new System.Drawing.Size(331, 26);
+            this.tsmiDeleteRepoName.Text = "Remove repository name";
+            this.tsmiDeleteRepoName.Click += new System.EventHandler(this.tsmiDeleteRepoName_Click);
             // 
             // imageList1
             // 
@@ -420,5 +436,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TextBox textBoxSearch;
         private ToolStripMenuItem tsmiCustomizeRepoName;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem tsmiDeleteRepoName;
     }
 }

@@ -21,6 +21,8 @@ namespace GitUI.CommandsDialogs.BrowseDialog.DashboardControl
             "Delete Category");
         private readonly TranslationString _deleteCategoryQuestion = new(
             "Do you want to delete category \"{0}\" with {1} repositories?\n\nThe action cannot be undone.");
+        private readonly TranslationString _deleteRepoNameQuestion = new(
+            "Do you want to delete the repository name \"{0}\" ?\n\nThe action cannot be undone.");
 
         private readonly TranslationString _clearRecentCategoryCaption = new(
             "Clear recent repositories");
@@ -572,6 +574,7 @@ namespace GitUI.CommandsDialogs.BrowseDialog.DashboardControl
                             tsmiOpenFolder.Visible = selected is not null;
 
             tsmiRemoveMissingReposFromList.Visible = _hasInvalidRepos;
+            tsmiDeleteRepoName.Visible = !string.IsNullOrWhiteSpace(selected.RepoName);
 
             if (selected is null || _rightClickedItem is null)
             {
@@ -846,9 +849,26 @@ namespace GitUI.CommandsDialogs.BrowseDialog.DashboardControl
             {
                 if (PromptCustomizeRepoName(GetRepoNames(), out string? repoName))
                 {
-                    ThreadHelper.JoinableTaskFactory.Run(() => _controller.CustomizeRepoNameAsync(selectedRepositoryItem.Repository, repoName));
+                    ThreadHelper.JoinableTaskFactory.Run(() => _controller.CustomizeOrDeleteRepoNameAsync(selectedRepositoryItem.Repository, repoName));
                     ShowRecentRepositories();
                 }
+            });
+        }
+
+        private void tsmiDeleteRepoName_Click(object sender, EventArgs e)
+        {
+            var selectedRepositoryItem = GetSelectedRepositoryItem(sender as ToolStripMenuItem);
+            string question = string.Format(_deleteRepoNameQuestion.Text, selectedRepositoryItem.Repository.RepoName);
+
+            if (!PromptUserConfirm(question, _deleteCategoryCaption.Text))
+            {
+                return;
+            }
+
+            RepositoryContextAction(sender as ToolStripMenuItem, selectedRepositoryItem =>
+            {
+                ThreadHelper.JoinableTaskFactory.Run(() => _controller.CustomizeOrDeleteRepoNameAsync(selectedRepositoryItem.Repository, ""));
+                ShowRecentRepositories();
             });
         }
 
